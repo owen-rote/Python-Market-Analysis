@@ -1,5 +1,6 @@
 # Author: owen-rote
-# Purpose:
+# Purpose: Contains functions to download s&p500 tickers, fetch yahoo trading data,
+#          compile into a single dataframe, and generate a correlation heatmap.
 
 import bs4 as bs
 import datetime as dt
@@ -78,7 +79,7 @@ def fetch_yahoo_data(reload_sp500=False, reload_data=False) -> None:
 
 def compile_data() -> None:
     """Compiles each stock's adj close price for each
-        date into one dataframe: sp500_joined_closes.csv
+    date into one dataframe: sp500_joined_closes.csv
     """
     with open("sp500tickers.txt", "r") as f:
         tickers = json.load(f)
@@ -103,11 +104,11 @@ def compile_data() -> None:
     main_df.to_csv("sp500_joined_closes.csv")
 
 
-def visualize_data(pct_change = False) -> None:
+def visualize_data(pct_change=False) -> None:
     """Generates a heatmap correlation table of all s&p 500 stock prices OR returns
 
     Args:
-        pct_change (bool, optional): Generates based on returns rather than price. 
+        pct_change (bool, optional): Generates based on returns rather than price.
             Returns tend to follow normal distrubution and prices don't. Defaults to False.
     """
     df = pd.read_csv("sp500_joined_closes.csv", parse_dates=["Date"], index_col="Date")
