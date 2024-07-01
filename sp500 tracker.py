@@ -70,10 +70,6 @@ def fetch_yahoo_data(reload_sp500=False, reload_data=False) -> None:
         else:
             print("Already have {}".format(ticker))
 
-
-# fetch_yahoo_data()
-
-
 def compile_data() -> None:
     with open("sp500tickers.txt", "r") as f:
         tickers = json.load(f)
