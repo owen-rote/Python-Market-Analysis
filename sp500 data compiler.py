@@ -1,26 +1,30 @@
 # Author: owen-rote
-# Purpose: Contains functions to download s&p500 tickers, fetch yahoo trading data,
-#          compile into a single dataframe, and generate a correlation heatmap.
+# Purpose: Contains functions to download S&P 500 tickers, fetch historical trading data
+#          from Yahoo Finance, compile the data into a single dataframe, and generate a
+#          correlation heatmap of stock prices or returns.
 
 import bs4 as bs
 import datetime as dt
-import os
-import matplotlib.pyplot as plt
-from matplotlib import style
-import numpy as np
-import pandas as pd
-import yfinance as yf
 import json
+from matplotlib import style
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import pandas as pd
 import requests
+import yfinance as yf
 
 style.use("ggplot")
 
 
 def save_sp500_tickers() -> list:
-    """Creates json file with a list of all s&p 500 tickers
+    """Creates a JSON file with a list of all S&P 500 tickers
+
+    This function scrapes the Wikipedia page for the S&P 500 index to get the list of
+    current tickers, saves them to a JSON file, and returns the list of tickers.
 
     Returns:
-        list: All s&p 500 tickers
+        list: A list of all S&P 500 tickers
     """
     response = requests.get("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies")
     soup = bs.BeautifulSoup(response.text, "lxml")
@@ -37,11 +41,14 @@ def save_sp500_tickers() -> list:
 
 
 def fetch_yahoo_data(reload_sp500=False, reload_data=False) -> None:
-    """Iterates through tickers and saves a csv of the data in stock_dfs dir
+    """Downloads historical stock data for S&P 500 tickers from Yahoo Finance.
+
+    This function iterates through the list of S&P 500 tickers and downloads historical
+    stock data, saving each ticker's data to a CSV file in the 'stock_dfs' directory.
 
     Args:
-        reload_sp500 (bool, optional): Re-downloads updated s&p 500 tickers. Defaults to False.
-        reload_data (bool, optional): Re-downloads all stock data. Defaults to False.
+        reload_sp500 (bool, optional): If True, re-downloads the updated list of S&P 500 tickers. Defaults to False.
+        reload_data (bool, optional): If True, re-downloads all stock data. Defaults to False.
     """
 
     # Reload tickers if required
@@ -78,8 +85,11 @@ def fetch_yahoo_data(reload_sp500=False, reload_data=False) -> None:
 
 
 def compile_data() -> None:
-    """Compiles each stock's adj close price for each
-    date into one dataframe: sp500_joined_closes.csv
+    """Compiles adjusted closing prices of S&P 500 stocks into a single dataframe.
+
+    This function reads the historical data of each S&P 500 stock from CSV files, extracts the
+    adjusted closing prices, and compiles them into one dataframe. The resulting dataframe is
+    saved to 'sp500_joined_closes.csv'.
     """
     with open("sp500tickers.txt", "r") as f:
         tickers = json.load(f)
@@ -105,10 +115,10 @@ def compile_data() -> None:
 
 
 def visualize_data(pct_change=False) -> None:
-    """Generates a heatmap correlation table of all s&p 500 stock prices OR returns
+    """Generates a heatmap correlation table of S&P 500 stock prices OR returns
 
     Args:
-        pct_change (bool, optional): Generates based on returns rather than price.
+        pct_change (bool, optional): If True, generates based on returns rather than price.
             Returns tend to follow normal distrubution and prices don't. Defaults to False.
     """
     df = pd.read_csv("sp500_joined_closes.csv", parse_dates=["Date"], index_col="Date")
