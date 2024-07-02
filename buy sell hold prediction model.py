@@ -6,8 +6,8 @@ from collections import Counter
 import json
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import VotingClassifier, RandomForestClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import LinearSVC
 
