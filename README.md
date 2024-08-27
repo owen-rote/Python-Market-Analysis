@@ -36,8 +36,7 @@ Correlationt ables are useful tools in stock analysis. \
 * **Green:** Signifies a strong positive correlation
 * **Red:** Signifies a strong negative correlation
 
-<img src='readme-resources/cor_table1.png' width='400'>
-<img src='readme-resources/cor_table2.png' width='400'>
+<img src='readme-resources/cor_table1.png' width='500'><img src='readme-resources/cor_table2.png' width='500'>
 
 ## Candlestick Charting
 **'simple charting.py'** \
