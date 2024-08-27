@@ -24,7 +24,7 @@ Ticker: DGX (Quest Diagnostics)
 * **Predicted Spread:** Amount of votes correlating to buy/sell/hold predicted for the next 7 days
 
 ## Correlation Table Generator
-Correlationt ables are useful tools in stock analysis. \
+Correlation tables are useful tools in stock analysis. \
 **'sp500 data compiler.py'**
 1. Downloads the updated list of stocks in the S&P 500
 2. Downloads the daily price data from January 1, 2000 until now
