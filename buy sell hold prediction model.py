@@ -2,6 +2,9 @@
 # Purpose: Contains functions for preprocessing stock data and training
 #          a buy/sell/hold prediction model using a voting classifier.
 
+# Note: Run 'sp500 data compiler.py' and select YES for downloading recent data.
+# in order to download required datasets.
+
 from collections import Counter
 import numpy as np
 import pandas as pd
@@ -150,4 +153,12 @@ def do_ml(ticker):
     return confidence
 
 
-do_ml("TSLA")
+if __name__ == "__main__":
+    while True:
+        try:
+            choice = input("Please enter a S&P 500 ticker to predict (EX: 'TSLA'): ")
+            do_ml(choice.upper())
+            break
+        except Exception:
+            print("ERROR: Ticker invalid.")
+

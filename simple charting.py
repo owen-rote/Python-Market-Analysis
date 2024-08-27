@@ -1,5 +1,6 @@
 # Author: owen-rote
 # Purpose: Demonstrates different charting options with yfinance stock data.
+#          Downloads and charts live stock data from desired ticker
 
 import datetime as dt
 import os

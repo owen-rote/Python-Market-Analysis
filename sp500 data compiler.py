@@ -4,7 +4,7 @@
 #          correlation heatmap of stock prices or returns.
 
 # Functions shall be called in the order fetch_yahoo_data() -> compile_data() -> visualize_data()
-
+# Can also be done automatically when run as a script.
 import bs4 as bs
 import datetime as dt
 import json
