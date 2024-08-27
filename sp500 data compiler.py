@@ -3,6 +3,8 @@
 #          from Yahoo Finance, compile the data into a single dataframe, and generate a
 #          correlation heatmap of stock prices or returns.
 
+# Functions shall be called in the order fetch_yahoo_data() -> compile_data() -> visualize_data()
+
 import bs4 as bs
 import datetime as dt
 import json
@@ -22,6 +24,8 @@ def save_sp500_tickers() -> list:
 
     This function scrapes the Wikipedia page for the S&P 500 index to get the list of
     current tickers, saves them to a JSON file, and returns the list of tickers.
+
+    Helper function for fetch_yahoo_data()
 
     Returns:
         list: A list of all S&P 500 tickers
@@ -65,7 +69,7 @@ def fetch_yahoo_data(reload_sp500=False, reload_data=False) -> None:
     start = dt.datetime(2000, 1, 1)
     end = dt.datetime.now()
 
-    # Reload data if required
+    # Reload data if desired
     if reload_data:
         for ticker in tickers:
             print("Reloading: {}".format(ticker))
@@ -117,6 +121,8 @@ def compile_data() -> None:
 def visualize_data(pct_change=False) -> None:
     """Generates a heatmap correlation table of S&P 500 stock prices OR returns
 
+    Must have available pre-compiled dataset from compile_data()
+
     Args:
         pct_change (bool, optional): If True, generates based on returns rather than price.
             Returns tend to follow normal distrubution and prices don't. Defaults to False.
@@ -157,4 +163,22 @@ def visualize_data(pct_change=False) -> None:
     plt.show()
 
 
-visualize_data()
+if __name__ == "__main__":
+    print("Initating S&P correlation table generator.\n")
+    # Ask if user wants most recent stock data
+    user_input = ''
+    while user_input.lower() != 'y' and user_input.lower() != 'n':
+        user_input = input("Would you like to fetch the most recent stock data AND re-compile data? \nThis will take a few minutes. (y/n): ")
+
+        if user_input == "y":
+            fetch_yahoo_data(True, True)
+            compile_data()
+
+    user_input = ''
+    while user_input.lower() != 'y' and user_input.lower() != 'n':
+        user_input = input("Would you like to visualize percent change correlation rather than price? (y/n): ")
+
+        if user_input == 'y':
+            visualize_data(True)
+        elif user_input == 'n':
+            visualize_data(False)

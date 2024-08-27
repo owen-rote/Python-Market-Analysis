@@ -3,7 +3,6 @@
 #          a buy/sell/hold prediction model using a voting classifier.
 
 from collections import Counter
-import json
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import VotingClassifier, RandomForestClassifier
