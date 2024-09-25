@@ -40,7 +40,7 @@ Correlation tables are useful tools in stock analysis. \
 
 ## Candlestick Charting
 **'simple charting.py'** \
-Provides easy-to-use and manipulatable tools for visualizing stock prices. \
+Provides easy-to-use and manipulatable tools for visualizing stock prices. 
 #### For example: A single-stock candlestick chart with moving average and trade volume (Ticker: SPY)
 
 ![Demo](readme-resources/candle.png)
